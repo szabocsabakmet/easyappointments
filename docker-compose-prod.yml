@@ -1,0 +1,41 @@
+services:
+
+  easyapointments:
+    image: alextselegidis/easyappointments:latest
+    restart: always
+    ports:
+      - '80:80'
+    environment:
+      - BASE_URL=http://localhost
+      - DEBUG_MODE=TRUE
+      - DB_HOST=mysql
+      - DB_NAME=easyappointments
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+      - MAIL_PROTOCOL=mail
+      - MAIL_SMTP_DEBUG=0
+      - MAIL_SMTP_AUTH=0
+      - MAIL_SMTP_HOST=smtp.example.org
+      - MAIL_SMTP_USER=
+      - MAIL_SMTP_PASS=
+      - MAIL_SMTP_CRYPTO=tls
+      - MAIL_SMTP_PORT=587
+      - MAIL_FROM_ADDRESS=info@example.org
+      - MAIL_FROM_NAME=Example
+      - MAIL_REPLY_TO_ADDRESS=info@example.org
+    volumes:
+      - easyappointments:/var/www/html
+    
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=easyappointments
+    volumes:
+      - mysql:/var/lib/mysql
+      
+volumes:
+  easyappointments:
+  mysql:
+
